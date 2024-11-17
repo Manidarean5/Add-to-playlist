@@ -2,14 +2,21 @@ from flask import Flask, request, jsonify, render_template, redirect, session
 import spotipy
 from spotipy.oauth2 import SpotifyOAuth
 import os
+import configparser
 
 app = Flask(__name__)
 
 # Configurar la secret key para gestionar sesiones
 app.secret_key = os.urandom(24)
 
-CLIENT_ID = "61a8a0da61df40fa88d99be9d3a222f4"
-CLIENT_SECRET = "e857b8e9d3664bcf8ebb7e5a04c30cd8"
+# Leer el archivo de configuración
+config = configparser.ConfigParser()
+config.read('config.ini')
+
+# Obtener los valores de CLIENT_ID y CLIENT_SECRET
+CLIENT_ID = config['DEFAULT']['CLIENT_ID']
+CLIENT_SECRET = config['DEFAULT']['CLIENT_SECRET']
+
 SCOPE = "playlist-modify-public playlist-modify-private user-library-modify"
 
 @app.route('/')
