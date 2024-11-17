@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spotify Playlist Manager</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Spotify Playlist Manager</h1>
+        {% if session.token_info %}
+            <form id="playlistForm">
+                <label for="playlistId">Playlist ID o Lista de Favoritos:</label>
+                <input type="text" id="playlistId" name="playlistId" required>
+                
+                <label for="songs">Lista de Canciones (separadas por comas):</label>
+                <textarea id="songs" name="songs" required></textarea>
+                
+                <button type="submit">Enviar</button>
+            </form>
+        {% else %}
+            <button id="loginButton">Autorizar con Spotify</button>
+        {% endif %}
+        <div id="response"></div>
+    </div>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
